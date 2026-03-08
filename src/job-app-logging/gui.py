@@ -206,7 +206,7 @@ class ApplicationLoggingGUI(ttk.Entry):
         submit_btn.grid(row=6, column=0, columnspan=2, sticky="ew", padx=(10, 0), pady=(10, 5))
         
     def logging_gui(self):
-
+        
         self.mysql_db_manager = MySQLDatabaseManager(self.mysql_conf)
 
         # Create the main window
@@ -214,7 +214,7 @@ class ApplicationLoggingGUI(ttk.Entry):
         self.logging_window.title("Job Application Logging")
         self.logging_window.geometry(f"{int(self.screen_width[0]/2)}x{int(self.screen_height[0] - 80)}+{int(self.screen_width[0]/2)}+0") # Set the initial size of the window
 
-
+        # Add a row counter to allow for a dynamic number of rows
         row_num = 0
 
         # Create an Entry field for user input
@@ -260,13 +260,13 @@ class ApplicationLoggingGUI(ttk.Entry):
         label = tk.Label(self.logging_window, text="Salary type:", justify=tk.LEFT, padx=35, font=("Helvetica", 10, "bold"))
         label.grid(row=row_num, column=0, sticky="ew", pady=(0, 5))
         
-        # 4. Define the options as a list of tuples (label text, value)
+        # Define the options as a list of tuples (label text, value)
         salary_types = [
             ("Hourly", 0),
             ("Yearly", 1)
         ]
 
-        # 5. Create Radiobutton widgets using a loop
+        # Create Radiobutton widgets using a loop
         for text, val in salary_types:
             tk.Radiobutton(
                 self.logging_window,
@@ -277,19 +277,20 @@ class ApplicationLoggingGUI(ttk.Entry):
             ).grid(row=row_num, column=1, sticky='w', pady=(0, 1))
             row_num += 1
 
-        # 3. Create a label to provide instructions
+        #  Create a label to provide instructions
         label = tk.Label(self.logging_window, text="Type of job:", justify=tk.LEFT, padx=35, font=("Helvetica", 10, "bold"))
         label.grid(sticky='w') # Anchor westward for left alignment
 
-        # 4. Define the options as a list of tuples (label text, value)
+        # Define the options as a list of tuples (label text, value)
         job_types = [
             ("Engineering", 0),
             ("Education", 1)
         ]
 
         self.job_type_var = tk.IntVar()
-
-        # 5. Create Radiobutton widgets using a loop
+        self.job_type_var.set(0)
+        
+        # Create Radiobutton widgets using a loop
         for text, val in job_types:
             tk.Radiobutton(
                 self.logging_window,
@@ -300,8 +301,7 @@ class ApplicationLoggingGUI(ttk.Entry):
             ).grid(row=row_num, column=1, sticky="w", pady=(0, 1))
             row_num += 1
 
-        # 3. Create a Button to trigger the action
-        # The 'command' attribute links the button click to the get_input_and_display function
+        # Create a Button to trigger the action
         submit_btn = ttk.Button(self.logging_window, text="Submit", command=self.log_input)
         submit_btn.grid(row=row_num, column=0, columnspan=2, sticky="ew", padx=(10, 0), pady=(10, 5))
 
